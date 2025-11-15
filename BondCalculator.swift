@@ -18,8 +18,13 @@ struct BondData {
     // Computed properties for tracking
     var daysServed: Int {
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day], from: startDate, to: Date())
-        return max(0, components.day ?? 0)
+
+       guard let start = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: startDate)),
+             let today = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: Date()))
+       else { return 0 }
+
+       let components = calendar.dateComponents([.day], from: start, to: today)
+       return max(0, components.day ?? 0)
     }
     
     var daysRemaining: Int {
