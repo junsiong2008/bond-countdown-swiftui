@@ -4,7 +4,9 @@ import 'services/bond_store.dart';
 import 'screens/setup_screen.dart';
 import 'screens/tracking_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await BondStore.init();
   runApp(const BondTrackerApp());
 }
 
